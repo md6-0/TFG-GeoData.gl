@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Representa en un mapa datos geolocalizados desde archivos CSV o JSON.">
+  <title>GeoData.gl · Web app</title>
+  <link rel="icon" href="./favicon.ico">
+</head>
+
+<body data-fase="asistente">
+  <div id="mapa" class="mapa"></div>
+
+  <a id="logo" class="logo" href="./index.html">GeoData.gl</a>
+  <div id="buscador" class="contenedor-buscador" hidden></div>
+
+  <section id="asistente" class="asistente" aria-label="Asistente de configuración"></section>
+
+  <aside id="cajaDatos" class="caja-datos" hidden aria-label="Información de los datos"></aside>
+
+  <section id="menu" class="menu" hidden aria-label="Panel de configuración"></section>
+
+  <div id="cargando" class="cargando" hidden role="status">
+    <div class="spinner" aria-hidden="true"></div>
+    <p>Leyendo el archivo…</p>
+  </div>
+
+  <noscript>GeoData.gl necesita JavaScript para funcionar.</noscript>
+  <script type="module" src="./src/app/main.js"></script>
+</body>
+
+</html>

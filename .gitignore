@@ -1,2 +1,13 @@
-#Ignorar dependencias
-node_modules
+# Dependencias y builds
+node_modules/
+dist/
+
+# Pruebas de navegador
+test-results/
+capturas/
+
+# Sistema y editores
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
