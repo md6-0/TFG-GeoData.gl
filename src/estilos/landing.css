@@ -237,10 +237,14 @@ header nav a[aria-current="page"] {
   border-radius: 50%;
   background: rgb(42 46 71 / 0.6);
   color: var(--blanco);
-  font-size: 2rem;
-  line-height: 1;
+  padding: 0;
   cursor: pointer;
   transition: background-color 0.2s, border-color 0.2s;
+}
+
+/* Icono SVG en vez del carácter «‹»: con texto, la tipografía lo descentraba */
+.carrusel-flecha svg {
+  display: block;
 }
 
 .carrusel-flecha:hover {
