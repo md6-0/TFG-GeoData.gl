@@ -1,0 +1,97 @@
+@import "./fuentes.css";
+
+/* Base y cabecera compartidas por la portada y la página de datos. */
+
+:root {
+  --blanco: #f8f8f8;
+  --azul: #779ed2;
+  --azul-hover: #5f86ba;
+  --fondo: #2a2e47;
+  --duracion: 0.6s;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  color: var(--blanco);
+  font-family: "Barlow Regular", system-ui, sans-serif;
+  background: var(--fondo);
+}
+
+a {
+  color: var(--blanco);
+}
+
+:focus-visible {
+  outline: 2px solid var(--azul);
+  outline-offset: 3px;
+}
+
+#fondo {
+  min-height: 100vh;
+  background: url(../assets/imgs/fondo.png) top / cover no-repeat, var(--fondo);
+}
+
+/* --- Cabecera ----------------------------------------------------------- */
+header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem 2rem;
+  width: min(90%, 1400px);
+  margin: 0 auto;
+  padding: 1.5rem 0;
+}
+
+header h1 {
+  font-family: "Barlow Bold Italic", system-ui, sans-serif;
+  font-size: 2rem;
+}
+
+header h1 a {
+  text-decoration: none;
+}
+
+header nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 2.5rem;
+  list-style: none;
+}
+
+header nav a {
+  font-family: "Barlow Bold", system-ui, sans-serif;
+  text-decoration: none;
+  padding: 0.25rem 0;
+  border-bottom: 2px solid transparent;
+}
+
+header nav a:hover,
+header nav a[aria-current="page"] {
+  border-bottom-color: var(--azul);
+}
+
+@media (max-width: 800px) {
+  header {
+    justify-content: center;
+    text-align: center;
+    padding: 1rem 0 0.5rem;
+  }
+
+  header nav ul {
+    justify-content: center;
+    gap: 0.5rem 1.5rem;
+  }
+}

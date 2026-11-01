@@ -76,7 +76,9 @@ function pararTemporal(parar) {
 }
 
 function actualizarBotonPausa() {
-  botonPausa.textContent = pausadoPorUsuario ? "▶" : "❚❚";
+  // En los SVG `hidden` no es una propiedad: hay que tocar el atributo.
+  botonPausa.querySelector(".icono-pausa").toggleAttribute("hidden", pausadoPorUsuario);
+  botonPausa.querySelector(".icono-reanudar").toggleAttribute("hidden", !pausadoPorUsuario);
   botonPausa.setAttribute("aria-label", pausadoPorUsuario ? "Reanudar el pase automático" : "Pausar el pase automático");
 }
 
