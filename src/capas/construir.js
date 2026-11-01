@@ -26,8 +26,10 @@ export function crearConstructor() {
     for (const capa of capas) {
       const tipo = tipoDeCapa(capa.tipo);
       if (tipo.usaCoordenadas && !coords) continue;
+      // El tipo va en el id: si se reutilizara el id al cambiar de tipo, deck.gl
+      // intentaría dibujar la capa nueva con el estado interno de la anterior.
       const ctx = {
-        id: capa.id,
+        id: `${capa.id}-${capa.tipo}`,
         filas: conCoordenadas,
         todas: filtradas,
         coords,
@@ -37,7 +39,7 @@ export function crearConstructor() {
       const layer = tipo.crear(ctx);
       if (layer) {
         layers.push(layer);
-        contextos.set(capa.id, { tipo, ctx });
+        contextos.set(ctx.id, { tipo, ctx });
       }
     }
     return { layers, contextos, escala: escala(todas) };

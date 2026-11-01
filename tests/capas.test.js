@@ -55,8 +55,16 @@ describe("tipos de capa", () => {
       const ajustes = { ...ajustesPorDefecto(tipo), latOrigen: "lat", lonOrigen: "lon", latDestino: "lat2", lonDestino: "lon2" };
       const { layers } = construir({ todas: filas, filtradas: filas, conCoordenadas: filasConCoordenadas(filas, coords), coords, capas: [{ id: tipo.id, tipo: tipo.id, ajustes }] });
       expect(layers, tipo.id).toHaveLength(1);
-      expect(layers[0].id).toBe(tipo.id);
+      expect(layers[0].id).toBe(`${tipo.id}-${tipo.id}`);
     }
+  });
+
+  it("al cambiar el tipo de una capa cambia el id de la capa de deck.gl", () => {
+    const construir = crearConstructor();
+    const base = { todas: filas, filtradas: filas, conCoordenadas: filasConCoordenadas(filas, coords), coords };
+    const antes = construir({ ...base, capas: [{ id: "c1", tipo: "calor", ajustes: ajustesPorDefecto(tipoDeCapa("calor")) }] });
+    const despues = construir({ ...base, capas: [{ id: "c1", tipo: "puntos", ajustes: ajustesPorDefecto(tipoDeCapa("puntos")) }] });
+    expect(antes.layers[0].id).not.toBe(despues.layers[0].id);
   });
 
   it("los arcos no se crean hasta tener las cuatro columnas", () => {
