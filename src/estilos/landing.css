@@ -1,315 +1,416 @@
 @import "./fuentes.css";
-*{
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
-    overflow-x: hidden;
-}
-:root{
-    --white : #f8f8f8;
-    --azul  :   #779ED2;
-    --fondo: #2a2e47;
-}
-a{
-    color: var(--white);
-    text-decoration: none;
-}
-/*FONDO*/
-#fondo{
-    width: 100vw;
-    height: 100vh;
-    background-image: url(../assets/imgs/fondo.png);
-    background-position: top;
-    background-size: cover;
-}
-/*FONDO*/
 
+/* Portada. Misma identidad que la original (fondo, Barlow, azul, números
+   grandes difuminados) con un carrusel de verdad: las diapositivas se deslizan. */
 
-/*HEADER*/
-header{
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    min-height: 13vh;
-    width: 90%;
-    margin: 0 auto;
-    padding: 1rem 0;
-    color: var(--white);
-    font-family: "Barlow Bold";
+:root {
+  --blanco: #f8f8f8;
+  --azul: #779ed2;
+  --azul-hover: #5f86ba;
+  --fondo: #2a2e47;
+  --duracion: 0.6s;
 }
 
-    header h1{
-        flex: 1 1 auto;
-        font-family: "Barlow Bold Italic";
-    }
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
-    header nav{
-        flex: 1.35 1 auto;
-    }
+html,
+body {
+  height: 100%;
+}
 
-    header nav ul{
-        display: flex;
-        justify-content: start;
-    }
-        header nav ul li{
-            padding: 0 2.5rem;
-        }
-/*HEADER*/
+body {
+  color: var(--blanco);
+  font-family: "Barlow Regular", system-ui, sans-serif;
+  background: var(--fondo);
+}
 
+a {
+  color: var(--blanco);
+}
 
-/*HERO*/
-.heroSection{
-    display: flex;
+:focus-visible {
+  outline: 2px solid var(--azul);
+  outline-offset: 3px;
+}
+
+#fondo {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  min-height: 100dvh;
+  background: url(../assets/imgs/fondo.png) top / cover no-repeat, var(--fondo);
+  overflow: hidden;
+}
+
+/* --- Cabecera ----------------------------------------------------------- */
+header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem 2rem;
+  width: min(90%, 1400px);
+  margin: 0 auto;
+  padding: 1.5rem 0;
+}
+
+header h1 {
+  font-family: "Barlow Bold Italic", system-ui, sans-serif;
+  font-size: 2rem;
+}
+
+header h1 a {
+  text-decoration: none;
+}
+
+header nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 2.5rem;
+  list-style: none;
+}
+
+header nav a {
+  font-family: "Barlow Bold", system-ui, sans-serif;
+  text-decoration: none;
+  padding: 0.25rem 0;
+  border-bottom: 2px solid transparent;
+}
+
+header nav a:hover,
+header nav a[aria-current="page"] {
+  border-bottom-color: var(--azul);
+}
+
+/* --- Carrusel ----------------------------------------------------------- */
+.portada-principal {
+  flex: 1;
+  display: flex;
+}
+
+.carrusel {
+  position: relative;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.carrusel-ventana {
+  flex: 1;
+  display: flex;
+  overflow: hidden;
+  touch-action: pan-y; /* el gesto horizontal es para el carrusel */
+}
+
+.carrusel-pista {
+  display: flex;
+  width: 100%;
+  transition: transform var(--duracion) cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.carrusel-pista.arrastrando {
+  transition: none;
+}
+
+.diapositiva {
+  flex: 0 0 100%;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: clamp(2rem, 6vw, 6rem);
+  /* Margen lateral suficiente para que las flechas no tapen el texto */
+  padding: 2rem max(6.5rem, calc((100% - 1150px) / 2)) 6rem;
+}
+
+.diapositiva-portada {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.diapositiva-texto {
+  position: relative;
+  max-width: 38rem;
+}
+
+.numero {
+  position: absolute;
+  z-index: -1;
+  top: -0.42em;
+  left: -0.35em;
+  font-family: "Barlow Bold", system-ui, sans-serif;
+  font-size: clamp(8rem, 18vw, 14rem);
+  line-height: 1;
+  color: rgb(255 255 255 / 0.08);
+  user-select: none;
+}
+
+.antetitulo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--azul);
+  font-family: "Barlow Bold", system-ui, sans-serif;
+  letter-spacing: 2px;
+}
+
+.antetitulo::before {
+  content: "";
+  width: 2.5rem;
+  border-top: 2px dashed currentColor;
+}
+
+.diapositiva h2 {
+  margin: 0.75rem 0 1.25rem;
+  font-family: "Barlow Bold", system-ui, sans-serif;
+  font-size: clamp(2rem, 4.2vw, 3.2rem);
+  line-height: 1.1;
+  text-wrap: balance;
+}
+
+.diapositiva .titulo-portada {
+  font-size: clamp(2.4rem, 6vw, 4.5rem);
+  max-width: 13ch;
+}
+
+.explicacion {
+  max-width: 34rem;
+  font-family: "Barlow Medium", system-ui, sans-serif;
+  font-size: clamp(1rem, 1.4vw, 1.2rem);
+  line-height: 1.65;
+  opacity: 0.92;
+}
+
+.boton-portada {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2rem;
+  min-width: 12rem;
+  min-height: 3.75rem;
+  padding: 0 2rem;
+  border-radius: 8px;
+  background: var(--azul);
+  font-family: "Barlow Medium", system-ui, sans-serif;
+  font-size: 1.35rem;
+  text-decoration: none;
+  transition: background-color 0.2s;
+}
+
+.boton-portada:hover {
+  background: var(--azul-hover);
+}
+
+.enlace-portada {
+  display: inline-block;
+  margin-top: 1.5rem;
+  color: var(--azul);
+  font-family: "Barlow Medium", system-ui, sans-serif;
+  font-size: 1.1rem;
+}
+
+.diapositiva-imagen img {
+  display: block;
+  height: clamp(16rem, 58vh, 34rem);
+  width: auto;
+  aspect-ratio: 491 / 624;
+  object-fit: cover;
+  border-radius: 14px;
+  box-shadow: 0 30px 60px rgb(0 0 0 / 0.45);
+}
+
+/* Flechas */
+.carrusel-flecha {
+  position: absolute;
+  top: 50%;
+  translate: 0 -50%;
+  display: grid;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  border: 1px solid rgb(255 255 255 / 0.35);
+  border-radius: 50%;
+  background: rgb(42 46 71 / 0.6);
+  color: var(--blanco);
+  font-size: 2rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: background-color 0.2s, border-color 0.2s;
+}
+
+.carrusel-flecha:hover {
+  background: var(--azul);
+  border-color: var(--azul);
+}
+
+.carrusel-anterior {
+  left: 1.5rem;
+}
+
+.carrusel-siguiente {
+  right: 1.5rem;
+}
+
+/* Puntos y pausa */
+.carrusel-controles {
+  position: absolute;
+  left: 50%;
+  bottom: 2rem;
+  translate: -50% 0;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.carrusel-puntos {
+  display: flex;
+  gap: 0.6rem;
+  list-style: none;
+}
+
+.carrusel-puntos button {
+  display: block;
+  position: relative;
+  width: 2.75rem;
+  height: 1.5rem;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+/* Cada punto es una barrita que se rellena mientras avanza el pase automático */
+.carrusel-puntos span {
+  position: absolute;
+  inset: 50% 0 auto;
+  height: 4px;
+  translate: 0 -50%;
+  border-radius: 2px;
+  background: rgb(255 255 255 / 0.3);
+  overflow: hidden;
+}
+
+.carrusel-puntos span::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--blanco);
+  transform: scaleX(0);
+  transform-origin: left;
+}
+
+.carrusel-puntos [aria-current="true"] span::after {
+  transform: scaleX(1);
+}
+
+.carrusel[data-auto="si"] .carrusel-puntos [aria-current="true"] span::after {
+  animation: progreso var(--intervalo, 7s) linear forwards;
+}
+
+.carrusel[data-pausado="si"] .carrusel-puntos [aria-current="true"] span::after {
+  animation-play-state: paused;
+}
+
+@keyframes progreso {
+  from {
+    transform: scaleX(0);
+  }
+
+  to {
+    transform: scaleX(1);
+  }
+}
+
+.carrusel-pausa {
+  width: 2rem;
+  height: 2rem;
+  border: 1px solid rgb(255 255 255 / 0.35);
+  border-radius: 50%;
+  background: transparent;
+  color: var(--blanco);
+  font-size: 0.7rem;
+  letter-spacing: -1px;
+  cursor: pointer;
+}
+
+.carrusel-pausa:hover {
+  border-color: var(--blanco);
+}
+
+/* --- Pantallas medianas: imagen más pequeña --------------------------------- */
+@media (max-width: 1100px) {
+  .diapositiva-imagen img {
+    height: clamp(14rem, 45vh, 26rem);
+  }
+}
+
+/* --- Móvil y tabletas en vertical: una columna, imagen debajo -------------- */
+@media (max-width: 800px) {
+  header {
     justify-content: center;
-    align-items: center;
-    height: 87vh;
-    width: 90%;
-    margin: 0 auto;
-    padding-bottom: 5rem;
-}
-
-/*RRSS*/
-#RRSS{
-    position: absolute;
-    left: 1.5%;
-    top: 35%;
-    transform: rotate(90deg);
-    display: flex;
-    color: var(--white);
-    font-family: "Barlow Bold";
-    font-size: 1.1rem;
-}
-    #RRSS img{
-        margin: 0 0 0 1rem ;
-        transform: rotate(-90deg);
-    }
-
-    #RRSS img:hover{
-        cursor: pointer;
-    }
-/*RRSS*/
-
-.slide{
-    display: none; 
-}
-
-.slide-active{
-    display: flex;  
-    color: var(--white);
-}
-
-/*ESTILO PORTADA*/
-.portada{
-    flex-direction: column; 
-    justify-content: start;
-    align-items: flex-start; 
-}
-#subtituloPortada{
-    color: var(--azul);
-    font-family: "Barlow Bold";
-    letter-spacing: 2px;
-}
-#tituloPortada{
-    padding: 1rem 0 2.5rem;
-    font-family: "Barlow Bold";
-    font-size: 4rem;
-}
-#btnPortada, .btnPortada{
-    font-family: "Barlow Medium";
-    font-size: 1.4rem;
-    color: var(--white);
-    background-color: var(--azul);
-    border-radius: 8px;
-    width: 12rem;
-    height: 4rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-#btnPortada:hover, .btnPortada:hover{
-   cursor: pointer;
-}
-/*ESTILO PORTADA*/
-
-
-
-/*Estilo slides*/
-.step{
-    position: relative;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-    margin-left: 10rem;
-    width: 80vw;
-}
-    .textoSlide{
-        height: 42vh;
-        max-width: 40%;
-        padding-right: 4rem; 
-    }
-        .textoSlide h3{
-            font-family: "Barlow Bold";
-            font-size: 3rem;
-            padding-top: 2rem;
-        }
-        .textoSlide p:nth-child(1){
-            position: absolute;
-            top: -10%;
-            left: 8%;
-            font-family: "Barlow Bold";
-            font-size: 13rem;
-            color: rgba(255, 255, 255, 0.1);
-        }
-        .textoSlide p:nth-child(2){
-            color: var(--azul);
-            font-family: "Barlow Bold";
-            letter-spacing: 2px;
-        }
-        .textoSlide .explicacionCarrusel{
-            font-family: "Barlow Medium";
-            font-size: 1.1rem;
-            padding: 2rem 0;
-            line-height: 178%;
-            max-width: 80%;
-        }
-
-    .imgSlide img{
-        height: 55vh;
-        width: 20vw;
-    }
-/*Estilo slides*/
-/*HERO*/
-
-
-/*Carrusel control*/
-.carruselControl{
-    position: absolute;
-     bottom: 2%;
-}
-
-    .carruselControl ol{
-        display: flex;
-    }
-
-    .carruselControl li{
-        padding: 1rem;
-    }
-
-    .carruselControl .bola{
-        width: 16px;
-        height: 16px;
-        border-radius: 50%;
-        border: 2px solid var(--white);
-        background: transparent;
-        cursor: pointer;
-    }
-
-    .carruselControl .bola[aria-current="true"]{
-        background: var(--white);
-    }
-/*Carrusel control*/
-
-
-
-@media (max-width: 1400px){
-
-    
-body{
-    overflow: hidden;
-}
-
-header h1{
     text-align: center;
-}
+    padding: 1rem 0 0.5rem;
+  }
 
-header nav ul{
+  header nav ul {
+    justify-content: center;
+    gap: 0.5rem 1.5rem;
+  }
+
+  .diapositiva {
+    grid-template-columns: minmax(0, 1fr);
+    align-content: center;
+    gap: 1.5rem;
+    padding: 1.5rem 1.5rem 5.5rem;
+  }
+
+  .diapositiva-imagen {
     display: flex;
     justify-content: center;
-}
-    header nav ul li{
-        padding: 1rem;
-    }
-.portada{
-    margin: 1.5rem;
-}
-#tituloPortada{
-    font-size: 2rem;
-}
-#btnPortada, .btnPortada{
-    font-size: 1.2rem;
-}
-#RRSS{
-    transform: rotate(0deg);
-    position: absolute;
-    left: 10%;
-    top: 93%;
-}
-#RRSS img{
-    transform: rotate(0deg);
-}
-.carruselControl{
-    position: absolute;
-     bottom: 10%;
+  }
+
+  .diapositiva-imagen img {
+    height: auto;
+    width: min(100%, 22rem);
+    aspect-ratio: 16 / 10;
+  }
+
+  .numero {
+    font-size: 7rem;
+    top: -0.35em;
+    left: -0.1em;
+  }
+
+  .boton-portada {
+    margin-top: 1.5rem;
+  }
+
+  /* En el táctil se desliza con el dedo: las flechas solo estorban */
+  .carrusel-flecha {
+    display: none;
+  }
+
+  .carrusel-controles {
+    bottom: 1.25rem;
+  }
 }
 
+@media (max-height: 640px) and (min-width: 801px) {
+  .diapositiva-imagen img {
+    height: 50vh;
+  }
 
-.step{
-    margin: 1rem;
-}
-.textoSlide{
-    height: 67vh;
-    max-width: 100%;
-}
-.textoSlide h3{
-    font-family: "Barlow Bold";
-    font-size: 2rem;
-    padding-top: 2rem;
-}
-.textoSlide p:nth-child(1){
-    position: absolute;
-    top: -8%;
-    left: 2%;
-    font-size: 12rem;
-    color: rgba(255, 255, 255, 0.1);
-}
-.textoSlide p:nth-child(2){
-   display: none;
-}
-.textoSlide .explicacionCarrusel{
-    font-size: 1rem;
-    max-width: 100%;
-}
-.imgSlide{
-   display: none;
+  .explicacion {
+    line-height: 1.45;
+  }
 }
 
-}
-
-@media (max-height : 900px){
-
-    .textoSlide h3{
-        font-size: 2rem;
-        padding-top: 2rem;
-    }
-
-    .textoSlide p:nth-child(2){
-        display: none;
-    }
-
-    .textoSlide .explicacionCarrusel{
-        font-family: "Barlow Medium";
-        font-size: 1.1rem;
-        padding: 2rem 0;
-        line-height: 130%;
-        max-width: 80%;
-    }
-}
-
-
-
-
-/* El enlace de la tercera diapositiva va debajo del texto */
-.textoSlide .btnPortada{
-    margin-top: 1rem;
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --duracion: 0s;
+  }
 }

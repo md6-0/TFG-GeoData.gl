@@ -14,7 +14,7 @@
     <div id="fondo">
 
         <header>
-            <h1>GeoData.gl</h1>
+            <h1><a href="./">GeoData.gl</a></h1>
             <nav>
                 <ul>
                     <li><a href="./" aria-current="page">Inicio</a></li>
@@ -24,72 +24,81 @@
             </nav>
         </header>
 
-        <section class="heroSection">
+        <main class="portada-principal">
+            <section class="carrusel" aria-roledescription="carrusel" aria-label="Qué es GeoData.gl">
+                <div class="carrusel-ventana">
+                    <div class="carrusel-pista" id="pista" aria-live="off">
 
-            <div class="slide slide-active portada">
-                <p id="subtituloPortada">------- &nbsp; REPRESENTACIÓN DE DATOS GEOLOCALIZADOS</p>
-                <h2 id="tituloPortada">¿Preparado/a para llevar <br> tus datos a otro nivel?</h2>
-                <a class="btnPortada" href="webapp.html">Empieza ya</a>
-            </div>
+                        <article class="diapositiva diapositiva-portada" role="group" aria-roledescription="diapositiva" aria-label="1 de 4">
+                            <div class="diapositiva-texto">
+                                <p class="antetitulo">REPRESENTACIÓN DE DATOS GEOLOCALIZADOS</p>
+                                <h2 class="titulo-portada">¿Quieres llevar tus datos a otro nivel?</h2>
+                                <p class="explicacion">Sube un CSV o un JSON con coordenadas y conviértelo en puntos, mapas de calor,
+                                    hexágonos 3D o arcos. Todo en tu navegador: el archivo no sale de tu ordenador.</p>
+                                <a class="boton-portada" href="./webapp.html">Empieza ya</a>
+                            </div>
+                        </article>
 
-            <div class="slide step">
-                <div class="textoSlide">
-                    <p>01</p>
-                    <p>------- &nbsp; PRIMER PASO</p>
-                    <h3>Selecciona el <br> archivo de datos</h3>
-                    <p class="explicacionCarrusel">Los formatos admitidos son JSON y CSV. Los archivos deben
-                        contener una fila de cabecera y varias columnas. Cada
-                        columna debe contener un sólo ítem: una fecha, un número,
-                        un nombre etc. y contener un solo tipo de dato.</p>
+                        <article class="diapositiva" role="group" aria-roledescription="diapositiva" aria-label="2 de 4">
+                            <div class="diapositiva-texto">
+                                <p class="numero" aria-hidden="true">01</p>
+                                <p class="antetitulo">PRIMER PASO</p>
+                                <h2>Selecciona el archivo de datos</h2>
+                                <p class="explicacion">Admite CSV, JSON y GeoJSON. El archivo necesita una fila de cabecera
+                                    y una columna por dato: una fecha, un número, un nombre… La app encuentra sola la
+                                    latitud y la longitud.</p>
+                                <a class="enlace-portada" href="./datos.html">¿Cómo debe ser el archivo?</a>
+                            </div>
+                            <figure class="diapositiva-imagen">
+                                <img src="./assets/imgs/datos-landing.png" width="491" height="624" alt="Fragmento de un archivo de datos CSV">
+                            </figure>
+                        </article>
+
+                        <article class="diapositiva" role="group" aria-roledescription="diapositiva" aria-label="3 de 4">
+                            <div class="diapositiva-texto">
+                                <p class="numero" aria-hidden="true">02</p>
+                                <p class="antetitulo">SEGUNDO PASO</p>
+                                <h2>Elige el tipo de representación</h2>
+                                <p class="explicacion">Puntos, chinchetas, mapas de calor en 2D y 3D, hexágonos y arcos de
+                                    origen a destino. Elige los que mejor cuenten tus datos y combínalos en el mismo mapa
+                                    como capas.</p>
+                            </div>
+                            <figure class="diapositiva-imagen">
+                                <img src="./assets/imgs/tipo-represe-landing.png" width="491" height="624" alt="Mapa con una capa de hexágonos en 3D" loading="lazy">
+                            </figure>
+                        </article>
+
+                        <article class="diapositiva" role="group" aria-roledescription="diapositiva" aria-label="4 de 4">
+                            <div class="diapositiva-texto">
+                                <p class="numero" aria-hidden="true">03</p>
+                                <p class="antetitulo">TERCER PASO</p>
+                                <h2>Personaliza tu representación</h2>
+                                <p class="explicacion">Colorea por categorías, filtra los datos, cambia el tema del mapa y
+                                    decide qué información se muestra al pasar el ratón.</p>
+                                <a class="boton-portada" href="./webapp.html">Empieza ya</a>
+                            </div>
+                            <figure class="diapositiva-imagen">
+                                <img src="./assets/imgs/maps-landing.foto.png" width="491" height="624" alt="Mapa con vista de satélite y una capa de datos" loading="lazy">
+                            </figure>
+                        </article>
+
+                    </div>
                 </div>
-                <div class="imgSlide">
-                    <img src="./assets/imgs/datos-landing.png" alt="Paso 1 del asistente: elegir el archivo">
+
+                <button type="button" class="carrusel-flecha carrusel-anterior" aria-controls="pista" aria-label="Diapositiva anterior">‹</button>
+                <button type="button" class="carrusel-flecha carrusel-siguiente" aria-controls="pista" aria-label="Diapositiva siguiente">›</button>
+
+                <div class="carrusel-controles">
+                    <button type="button" class="carrusel-pausa" aria-label="Pausar el pase automático">❚❚</button>
+                    <ol class="carrusel-puntos">
+                        <li><button type="button" aria-controls="pista" aria-label="Ir a la diapositiva 1"><span></span></button></li>
+                        <li><button type="button" aria-controls="pista" aria-label="Ir a la diapositiva 2"><span></span></button></li>
+                        <li><button type="button" aria-controls="pista" aria-label="Ir a la diapositiva 3"><span></span></button></li>
+                        <li><button type="button" aria-controls="pista" aria-label="Ir a la diapositiva 4"><span></span></button></li>
+                    </ol>
                 </div>
-            </div>
-
-
-            <div class="slide step">
-                <div class="textoSlide">
-                    <p>02</p>
-                    <p>------- &nbsp; SEGUNDO PASO</p>
-                    <h3>Elige el tipo de <br> representación</h3>
-                    <p class="explicacionCarrusel">Hay muchos tipos de representación, desde representaciones sencillas a
-                        mapas de densidad. Elige la que más se ajuste a lo que quieres representar.
-                        Recuerda que puedes añadir varios tipos de representación
-                        sobre un mismo mapa a modo de capas.</p>
-                </div>
-                <div class="imgSlide">
-                    <img src="./assets/imgs/tipo-represe-landing.png" alt="Paso 2 del asistente: tipos de representación">
-                </div>
-            </div>
-
-            <div class="slide step">
-                <div class="textoSlide">
-                    <p>03</p>
-                    <p>------- &nbsp; TERCER PASO</p>
-                    <h3>Personaliza tu <br> representación</h3>
-                    <p class="explicacionCarrusel">Cambia los colores y el tema del mapa, decide que información quieres
-                        mostar.
-                        Representa tus datos de una manera única.</p>
-                    <a class="btnPortada" href="webapp.html">Empieza ya</a>
-                </div>
-
-
-                <div class="imgSlide">
-                    <img src="./assets/imgs/maps-landing.foto.png" alt="Mapa con una capa de datos">
-                </div>
-            </div>
-
-
-            <nav class="carruselControl" aria-label="Diapositivas">
-                <ol>
-                    <li><button type="button" class="bola" aria-label="Portada" aria-current="true"></button></li>
-                    <li><button type="button" class="bola" aria-label="Paso 1"></button></li>
-                    <li><button type="button" class="bola" aria-label="Paso 2"></button></li>
-                    <li><button type="button" class="bola" aria-label="Paso 3"></button></li>
-                </ol>
-            </nav>
-        </section>
+            </section>
+        </main>
 
     </div>
     <script type="module" src="./src/landing/carrusel.js"></script>
