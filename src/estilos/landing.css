@@ -1,91 +1,14 @@
-@import "./fuentes.css";
+@import "./comun.css";
 
 /* Portada. Misma identidad que la original (fondo, Barlow, azul, números
    grandes difuminados) con un carrusel de verdad: las diapositivas se deslizan. */
-
-:root {
-  --blanco: #f8f8f8;
-  --azul: #779ed2;
-  --azul-hover: #5f86ba;
-  --fondo: #2a2e47;
-  --duracion: 0.6s;
-}
-
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-html,
-body {
-  height: 100%;
-}
-
-body {
-  color: var(--blanco);
-  font-family: "Barlow Regular", system-ui, sans-serif;
-  background: var(--fondo);
-}
-
-a {
-  color: var(--blanco);
-}
-
-:focus-visible {
-  outline: 2px solid var(--azul);
-  outline-offset: 3px;
-}
 
 #fondo {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
   min-height: 100dvh;
-  background: url(../assets/imgs/fondo.png) top / cover no-repeat, var(--fondo);
   overflow: hidden;
-}
-
-/* --- Cabecera ----------------------------------------------------------- */
-header {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.75rem 2rem;
-  width: min(90%, 1400px);
-  margin: 0 auto;
-  padding: 1.5rem 0;
-}
-
-header h1 {
-  font-family: "Barlow Bold Italic", system-ui, sans-serif;
-  font-size: 2rem;
-}
-
-header h1 a {
-  text-decoration: none;
-}
-
-header nav ul {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem 2.5rem;
-  list-style: none;
-}
-
-header nav a {
-  font-family: "Barlow Bold", system-ui, sans-serif;
-  text-decoration: none;
-  padding: 0.25rem 0;
-  border-bottom: 2px solid transparent;
-}
-
-header nav a:hover,
-header nav a[aria-current="page"] {
-  border-bottom-color: var(--azul);
 }
 
 /* --- Carrusel ----------------------------------------------------------- */
@@ -330,15 +253,28 @@ header nav a[aria-current="page"] {
 }
 
 .carrusel-pausa {
+  display: grid;
+  place-items: center;
   width: 2rem;
   height: 2rem;
+  padding: 0;
   border: 1px solid rgb(255 255 255 / 0.35);
   border-radius: 50%;
   background: transparent;
   color: var(--blanco);
-  font-size: 0.7rem;
-  letter-spacing: -1px;
   cursor: pointer;
+}
+
+/* SVG en vez de «❚❚» y «▶»: con texto, la tipografía los descentraba.
+   El triángulo va algo a la derecha de su caja para que se vea centrado. */
+.carrusel-pausa svg {
+  display: block;
+  fill: currentColor;
+  stroke: currentColor;
+}
+
+.carrusel-pausa svg[hidden] {
+  display: none;
 }
 
 .carrusel-pausa:hover {
@@ -354,17 +290,6 @@ header nav a[aria-current="page"] {
 
 /* --- Móvil y tabletas en vertical: una columna, imagen debajo -------------- */
 @media (max-width: 800px) {
-  header {
-    justify-content: center;
-    text-align: center;
-    padding: 1rem 0 0.5rem;
-  }
-
-  header nav ul {
-    justify-content: center;
-    gap: 0.5rem 1.5rem;
-  }
-
   .diapositiva {
     grid-template-columns: minmax(0, 1fr);
     align-content: center;

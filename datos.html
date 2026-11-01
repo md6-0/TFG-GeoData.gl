@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="./favicon.ico">
+    <meta name="description" content="Qué archivos acepta GeoData.gl (CSV, JSON y GeoJSON) y conjuntos de datos abiertos de ejemplo.">
     <title>GeoData.gl · Datos de ejemplo</title>
     <link rel="stylesheet" href="./src/estilos/datos.css">
 </head>
@@ -13,7 +14,7 @@
     <div id="fondo">
 
         <header>
-            <h1>GeoData.gl</h1>
+            <h1><a href="./">GeoData.gl</a></h1>
             <nav>
                 <ul>
                     <li><a href="./">Inicio</a></li>
@@ -23,171 +24,128 @@
             </nav>
         </header>
 
-        <section id="infoDatos">
-            <h2>¿Cómo deben ser los archivos?</h2>
-            <p>Para poder ser leídos por la web app, los archivos deben tener una estructura concreta.
-                <br> <br>
-                Estos requisitos se han definido siguendo las carácterísticas más comunes de los archivos de datos
-                abiertos.
-                <br><br>
-                En primer lugar, deben tener los datos de latitud y longitud en dos columnas separadas.
-                <br>
-                <br>
-                Para que la web app localize de manera automática las coordenadas,
-                el nombre de los campos de las coordenadas deben ser los siguientes:
-                <br>
-                (también serían
-                válidos en mayúsculas o con mayúsculas y minúsculas mezcladas)
-            </p>
+        <main class="contenido">
+            <section class="caja" aria-labelledby="titulo-formato">
+                <h2 id="titulo-formato">¿Cómo deben ser los archivos?</h2>
+                <p>GeoData.gl lee archivos <strong>CSV</strong>, <strong>JSON</strong> y <strong>GeoJSON</strong>.
+                    Los requisitos siguen la forma más habitual de los archivos de los portales de datos abiertos,
+                    así que la mayoría funcionan tal como se descargan.</p>
+                <p>El archivo se lee en tu navegador: no se sube a ningún servidor.</p>
 
-            <p>Nombres para el campo de la latitud:</p>
-            <ul>
-                <li>- lat</li>
-                <li>- lati</li>
-                <li>- latitude</li>
-                <li>- latitud</li>
-                <li>- y</li>
-                <li>- latitud_y</li>
-                <li>- lat-x, lat_y</li>
-            </ul>
+                <h3>Coordenadas</h3>
+                <p>La latitud y la longitud tienen que estar en <strong>dos columnas separadas</strong>. La app las
+                    encuentra sola si se llaman de alguna de estas formas (da igual que estén en mayúsculas o en
+                    minúsculas):</p>
+                <dl class="nombres">
+                    <dt>Latitud</dt>
+                    <dd><code>lat</code> <code>lati</code> <code>latitude</code> <code>latitud</code> <code>y</code>
+                        <code>latitud_y</code> <code>lat_y</code> <code>lat-x</code></dd>
+                    <dt>Longitud</dt>
+                    <dd><code>lon</code> <code>lng</code> <code>long</code> <code>longitude</code> <code>longitud</code>
+                        <code>x</code> <code>longitud_x</code> <code>lon_x</code> <code>lon-y</code> <code>lng_x</code></dd>
+                </dl>
+                <p>Si no coinciden, busca una única columna que contenga «lat» y otra que contenga «lon» o «lng»,
+                    siempre que sus valores sean coordenadas válidas. Si aun así no las encuentra, al subir el archivo
+                    te pedirá que elijas las columnas.</p>
+                <p>Las filas sin coordenadas, o con coordenadas 0,0, no se dibujan, y la app te dice cuántas son.
+                    La capa de arcos no usa estas columnas: tiene las suyas de origen y destino.</p>
 
-            <p>
-                <br>
-                Nombres para el campo de la longitud:
-            </p>
-            <ul>
-                <li>- lon</li>
-                <li>- lng</li>
-                <li>- long</li>
-                <li>- longitude</li>
-                <li>- longitud</li>
-                <li>- x</li>
-                <li>- longitud_x</li>
-                <li>- lon-y, lon_x, lng_x</li>
-            </ul>
+                <h3>Archivos CSV</h3>
+                <p>Solo necesitan una <strong>fila de cabecera</strong> con el nombre de cada columna. El separador
+                    puede ser coma, punto y coma, tabulador o barra vertical, y los decimales pueden llevar punto
+                    o coma.</p>
+                <figure>
+                    <img src="./assets/imgs/ejemplocsv.png" alt="Archivo CSV con una cabecera y una fila por elemento; las columnas Lat y Lon tienen las coordenadas">
+                    <figcaption>La primera línea es la cabecera y da nombre a los valores de las siguientes. Como las
+                        coordenadas están en columnas llamadas <code>Lat</code> y <code>Lon</code>, la app las encuentra
+                        sola.</figcaption>
+                </figure>
 
-            <p>
-                Si no coinciden exactamente, la app busca una única columna que contenga «lat» y otra que contenga
-                «lon» o «lng», con valores dentro de rango. Si aun así no las encuentra, te pedirá que elijas
-                las columnas de las coordenadas al subir el archivo.
-                <br><br>
-                Las filas sin coordenadas, o con 0,0, no se dibujan; la app te dice cuántas hay.
-                <br><br><br>
-            </p>
+                <h3>Archivos JSON y GeoJSON</h3>
+                <p>Un JSON debe ser una <strong>lista de objetos</strong>, o un objeto que contenga esa lista. Si un
+                    objeto lleva otro dentro, sus campos se convierten en columnas con nombres como
+                    <code>direccion.calle</code>.</p>
+                <figure>
+                    <img src="./assets/imgs/ejemplojson.png" alt="Archivo JSON con una lista de objetos; cada uno tiene los campos lat y lon">
+                    <figcaption>Cada elemento va entre llaves <code>{ … }</code> y se separa del siguiente con una
+                        coma. Los campos <code>lat</code> y <code>lon</code> se reconocen solos.</figcaption>
+                </figure>
+                <p>De los GeoJSON se leen los puntos (<code>Point</code>): sus propiedades pasan a ser columnas y la
+                    app añade <code>latitud</code> y <code>longitud</code>.</p>
+            </section>
 
-            <h3>Archivos CSV</h3>
-            <p>El único requisito para poder utilizar un archivo CSV es que el archivo cuente con cabecera.
-                El separador puede ser coma, punto y coma, tabulador o barra vertical, y los decimales pueden
-                llevar punto o coma.
-                <br><br>
-            </p>
-
-            <p>Ejemplo de un sencillo pero válido archivo CSV:</p>
-            <img src="./assets/imgs/ejemplocsv.png" alt="ejemplo de archivo csv válido">
-            <p>Como se puede ver, la línea número uno es la cabecera, que da nombre a los valores de las
-                líneas siguientes. <br></p>
-            <p>Además, como los campos de las coordenas cumplen con los nombres mencionados anteriormente (Lat y Lon),
-                por lo que
-                la web app
-                será capaz de encontrar las coordenas de manera automática, y cumple también con el requisitos de tener
-                las coordenadas en campos distintos.
-                <br><br><br>
-            </p>
-
-
-            <h3>Archivos JSON y GeoJSON</h3>
-            <p>El archivo JSON debe ser una lista de objetos (o un objeto que contenga esa lista). Si un objeto tiene
-                otro dentro, sus campos se convierten en columnas con nombres como «direccion.calle».
-                <br><br>
-                También se aceptan archivos GeoJSON con puntos: la app crea las columnas «latitud» y «longitud».
-                <br><br>
-            </p>
-            <p>Ejemplo de un sencillo pero válido archivo JSON:</p>
-            <img src="./assets/imgs/ejemplojson.png" alt="ejemplo de archivo json válido">
-            <p>Como se puede ver, cada ítem está limitado por llaves ( { ... } ) y está separado por comas ( {...} ,
-                {...})
-                del anterior y del siguiente item. <br>
-            </p>
-            <p>Además, como los campos de las coordenas cumplen con los nombres mencionados anteriormente (lat y lon),
-                por lo que
-                la web app
-                será capaz de encontrar las coordenas de manera automática, y cumple también con el requisitos de tener
-                las coordenadas en campos distintos.
-
-                <br><br><br>
-                En la siguiente sección hay varios archivos de datos para probar la aplicación y ver su estructura.
-                <br>
-                Cada uno se puede abrir directamente en la app, descargar o consultar en el portal de datos
-                abiertos del que se ha extraído.
-            </p>
-        </section>
-
-        <section class="sectionDatos">
-            <article class="cajaDatos">
-                <h2>Viviendas de uso turístico · Barcelona 2018</h2>
-                <p class="accionesDatos">
-                    <a class="abrir" href="./webapp.html?ejemplo=pisosTuristicosBarcelona.csv">Abrir en la app</a>
-                    <a href="./datos/pisosTuristicosBarcelona.csv" download>Descargar</a>
+            <section class="caja" aria-labelledby="titulo-ejemplos">
+                <h2 id="titulo-ejemplos">Archivos de ejemplo</h2>
+                <p>Datos abiertos de portales públicos para probar la app. Cada uno se puede abrir directamente,
+                    descargar para ver cómo es por dentro o consultar en su fuente.</p>
+                <div class="rejilla-ejemplos">
+            <article class="tarjeta-ejemplo">
+                <h3>Viviendas de uso turístico · Barcelona 2018</h3>
+                <p class="acciones">
+                    <a class="boton" href="./webapp.html?ejemplo=pisosTuristicosBarcelona.csv">Abrir en la app</a>
+                    <a class="enlace" href="./datos/pisosTuristicosBarcelona.csv" download>Descargar</a>
                 </p>
-                <p>Fuente: <a href="https://datos.gob.es/es/catalogo/l01080193-viviendas-de-uso-turistico-de-la-ciudad-de-barcelona">Datos.gob.es</a></p>
+                <p class="fuente">Fuente: <a href="https://datos.gob.es/es/catalogo/l01080193-viviendas-de-uso-turistico-de-la-ciudad-de-barcelona">Datos.gob.es</a></p>
             </article>
-            <article class="cajaDatos">
-                <h2>Contenedores de residuos · Madrid 2020</h2>
-                <p class="accionesDatos">
-                    <a class="abrir" href="./webapp.html?ejemplo=contenedores_Madrid.csv">Abrir en la app</a>
-                    <a href="./datos/contenedores_Madrid.csv" download>Descargar</a>
+            <article class="tarjeta-ejemplo">
+                <h3>Contenedores de residuos · Madrid 2020</h3>
+                <p class="acciones">
+                    <a class="boton" href="./webapp.html?ejemplo=contenedores_Madrid.csv">Abrir en la app</a>
+                    <a class="enlace" href="./datos/contenedores_Madrid.csv" download>Descargar</a>
                 </p>
-                <p>Fuente: <a href="https://datos.madrid.es/portal/site/egob/menuitem.c05c1f754a33a9fbe4b2e4b284f1a5a0/?vgnextoid=38ed95bac1ba6610VgnVCM1000001d4a900aRCRD&amp;vgnextchannel=374512b9ace9f310VgnVCM100000171f5a0aRCRD&amp;vgnextfmt=default">Datos.madrid.es</a></p>
+                <p class="fuente">Fuente: <a href="https://datos.madrid.es/portal/site/egob/menuitem.c05c1f754a33a9fbe4b2e4b284f1a5a0/?vgnextoid=38ed95bac1ba6610VgnVCM1000001d4a900aRCRD&amp;vgnextchannel=374512b9ace9f310VgnVCM100000171f5a0aRCRD&amp;vgnextfmt=default">Datos.madrid.es</a></p>
             </article>
-            <article class="cajaDatos">
-                <h2>Casos activos de COVID-19 · La Rioja, agosto 2020</h2>
-                <p class="accionesDatos">
-                    <a class="abrir" href="./webapp.html?ejemplo=casos_activos_zonas_basicas.csv">Abrir en la app</a>
-                    <a href="./datos/casos_activos_zonas_basicas.csv" download>Descargar</a>
+            <article class="tarjeta-ejemplo">
+                <h3>Casos activos de COVID-19 · La Rioja, agosto 2020</h3>
+                <p class="acciones">
+                    <a class="boton" href="./webapp.html?ejemplo=casos_activos_zonas_basicas.csv">Abrir en la app</a>
+                    <a class="enlace" href="./datos/casos_activos_zonas_basicas.csv" download>Descargar</a>
                 </p>
-                <p>Fuente: <a href="https://datos.gob.es/es/catalogo/a17002943-coronavirus-casos-activos-por-zonas-basicas-de-salud1">Datos.gob.es</a></p>
+                <p class="fuente">Fuente: <a href="https://datos.gob.es/es/catalogo/a17002943-coronavirus-casos-activos-por-zonas-basicas-de-salud1">Datos.gob.es</a></p>
             </article>
-            <article class="cajaDatos">
-                <h2>Flujo de inmigrantes recibidos · España 2019</h2>
-                <p class="accionesDatos">
-                    <a class="abrir" href="./webapp.html?ejemplo=flujo_migratorio.csv">Abrir en la app</a>
-                    <a href="./datos/flujo_migratorio.csv" download>Descargar</a>
+            <article class="tarjeta-ejemplo">
+                <h3>Flujo de inmigrantes recibidos · España 2019</h3>
+                <p class="acciones">
+                    <a class="boton" href="./webapp.html?ejemplo=flujo_migratorio.csv">Abrir en la app</a>
+                    <a class="enlace" href="./datos/flujo_migratorio.csv" download>Descargar</a>
                 </p>
-                <p>Fuente: <a href="https://www.ine.es/jaxiT3/Tabla.htm?t=24295">INE</a></p>
+                <p class="fuente">Fuente: <a href="https://www.ine.es/jaxiT3/Tabla.htm?t=24295">INE</a></p>
             </article>
-            <article class="cajaDatos">
-                <h2>Veladores con licencia · Alicante 2019</h2>
-                <p class="accionesDatos">
-                    <a class="abrir" href="./webapp.html?ejemplo=Veladores-geo-2019_5.csv">Abrir en la app</a>
-                    <a href="./datos/Veladores-geo-2019_5.csv" download>Descargar</a>
+            <article class="tarjeta-ejemplo">
+                <h3>Veladores con licencia · Alicante 2019</h3>
+                <p class="acciones">
+                    <a class="boton" href="./webapp.html?ejemplo=Veladores-geo-2019_5.csv">Abrir en la app</a>
+                    <a class="enlace" href="./datos/Veladores-geo-2019_5.csv" download>Descargar</a>
                 </p>
-                <p>Fuente: <a href="http://datosabiertos.alicante.es/">Ayuntamiento de Alicante</a></p>
+                <p class="fuente">Fuente: <a href="http://datosabiertos.alicante.es/">Ayuntamiento de Alicante</a></p>
             </article>
-            <article class="cajaDatos">
-                <h2>Vados con licencia · Alicante 2019</h2>
-                <p class="accionesDatos">
-                    <a class="abrir" href="./webapp.html?ejemplo=vadosALC.csv">Abrir en la app</a>
-                    <a href="./datos/vadosALC.csv" download>Descargar</a>
+            <article class="tarjeta-ejemplo">
+                <h3>Vados con licencia · Alicante 2019</h3>
+                <p class="acciones">
+                    <a class="boton" href="./webapp.html?ejemplo=vadosALC.csv">Abrir en la app</a>
+                    <a class="enlace" href="./datos/vadosALC.csv" download>Descargar</a>
                 </p>
-                <p>Fuente: <a href="http://datosabiertos.alicante.es/">Ayuntamiento de Alicante</a></p>
+                <p class="fuente">Fuente: <a href="http://datosabiertos.alicante.es/">Ayuntamiento de Alicante</a></p>
             </article>
-            <article class="cajaDatos">
-                <h2>Puntos críticos de limpieza · Barcelona 2017</h2>
-                <p class="accionesDatos">
-                    <a class="abrir" href="./webapp.html?ejemplo=limpiezaBCN.csv">Abrir en la app</a>
-                    <a href="./datos/limpiezaBCN.csv" download>Descargar</a>
+            <article class="tarjeta-ejemplo">
+                <h3>Puntos críticos de limpieza · Barcelona 2017</h3>
+                <p class="acciones">
+                    <a class="boton" href="./webapp.html?ejemplo=limpiezaBCN.csv">Abrir en la app</a>
+                    <a class="enlace" href="./datos/limpiezaBCN.csv" download>Descargar</a>
                 </p>
-                <p>Fuente: <a href="https://opendata-ajuntament.barcelona.cat/">Open Data BCN</a></p>
+                <p class="fuente">Fuente: <a href="https://opendata-ajuntament.barcelona.cat/">Open Data BCN</a></p>
             </article>
-            <article class="cajaDatos">
-                <h2>Estaciones meteorológicas · Galicia (JSON)</h2>
-                <p class="accionesDatos">
-                    <a class="abrir" href="./webapp.html?ejemplo=meteoGalicia.json">Abrir en la app</a>
-                    <a href="./datos/meteoGalicia.json" download>Descargar</a>
+            <article class="tarjeta-ejemplo">
+                <h3>Estaciones meteorológicas · Galicia (JSON)</h3>
+                <p class="acciones">
+                    <a class="boton" href="./webapp.html?ejemplo=meteoGalicia.json">Abrir en la app</a>
+                    <a class="enlace" href="./datos/meteoGalicia.json" download>Descargar</a>
                 </p>
-                <p>Fuente: <a href="https://www.meteogalicia.gal/">MeteoGalicia</a></p>
+                <p class="fuente">Fuente: <a href="https://www.meteogalicia.gal/">MeteoGalicia</a></p>
             </article>
-        </section>
+                </div>
+            </section>
+        </main>
     </div>
 </body>
 
