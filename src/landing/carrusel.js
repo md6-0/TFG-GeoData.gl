@@ -3,13 +3,13 @@
  *
  * - Las diapositivas se deslizan (transform) en vez de aparecer y desaparecer.
  * - Flechas, puntos, teclado (← →) y gesto de deslizar con el dedo o el ratón.
- * - Pase automático cada 7 s que se para con el ratón sobre el texto, la imagen
+ * - Pase automático cada 10 s que se para con el ratón sobre el texto, la imagen
  *   o los controles, con el foco dentro,
  *   cuando la pestaña no está visible y con el botón de pausa. Si el sistema pide
  *   reducir el movimiento, no arranca solo.
  * - Las diapositivas ocultas son `inert`: sus enlaces no reciben el foco.
  */
-const INTERVALO = 7000;
+const INTERVALO = 10000;
 const UMBRAL_GESTO = 50; // px que hay que arrastrar para cambiar de diapositiva
 
 const carrusel = document.querySelector(".carrusel");

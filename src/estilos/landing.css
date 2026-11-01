@@ -308,7 +308,7 @@ header nav a[aria-current="page"] {
 }
 
 .carrusel[data-auto="si"] .carrusel-puntos [aria-current="true"] span::after {
-  animation: progreso var(--intervalo, 7s) linear forwards;
+  animation: progreso var(--intervalo, 10s) linear forwards;
 }
 
 .carrusel[data-pausado="si"] .carrusel-puntos [aria-current="true"] span::after {
