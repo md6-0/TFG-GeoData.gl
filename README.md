@@ -6,9 +6,11 @@ Es mi Trabajo de Fin de Grado en Ingeniería Multimedia (Universidad de Alicante
 
 **[Probar la demo](https://md6-0.github.io/TFG-GeoData.gl/)** · [Abrir un ejemplo directamente](https://md6-0.github.io/TFG-GeoData.gl/webapp.html?ejemplo=flujo_migratorio.csv)
 
-| Asistente | Hexágonos 3D | Arcos |
+![Veladores de Alicante como puntos sobre el tema «Oscuro», con la caja de datos de un velador](docs/puntos.jpg)
+
+| Mapa de calor | Arcos con filtro | Asistente |
 | --- | --- | --- |
-| ![Asistente: archivo leído y coordenadas detectadas](docs/asistente.jpg) | ![Capa de hexágonos 3D y puntos coloreados por categoría](docs/hexagonos.jpg) | ![Arcos del flujo migratorio coloreados por continente](docs/arcos.jpg) |
+| ![Mapa de calor de las viviendas de uso turístico de Barcelona sobre el tema «Noche»](docs/calor.jpg) | ![Arcos del flujo migratorio coloreados por continente sobre el tema «Satélite», filtrados por número de personas](docs/arcos.jpg) | ![Primer paso del asistente con el archivo leído y las coordenadas detectadas](docs/asistente.jpg) |
 
 ## Qué hace
 
@@ -102,7 +104,7 @@ La primera versión era un MVP que fue creciendo sin cambiar su estructura: un �
 - Filtros de texto por «contiene», sin distinguir mayúsculas ni tildes.
 - Ejemplos que se abren con un clic desde el asistente o desde la página de datos.
 - Diseño adaptado a móvil, foco de teclado visible y pestañas y botones accesibles.
-- 35 tests y lint.
+- 36 tests y lint.
 
 ## Datos de ejemplo
 
